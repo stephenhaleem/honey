@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portrait Photographer | Editorial Portfolio</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      @import url("https://fonts.googleapis.com/css2?family=Plaster&family=Poiret+One&display=swap");
+
+      :root {
+        --primary-font: "Helvetica Neue", Arial, sans-serif;
+        --secondary-font: "Times New Roman", serif;
+        --text-color: #ffffff;
+        --accent-color: #ff4d4d;
+        --dark-bg: #000000;
+        --section-padding: 120px 0;
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 3px; /* Width of the scrollbar */
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1); /* Track background */
+        border-radius: 10px; /* Rounded corners */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(
+          45deg,
+          #ff4d4d,
+          #ff8080
+        ); /* Gradient thumb */
+        border-radius: 10px; /* Rounded corners */
+        border: 2px solid rgba(0, 0, 0, 0.7); /* Border around the thumb */
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(45deg, #ff8080, #ff4d4d); /* Hover effect */
+      }
+
+      /* For Firefox */
+      * {
+        scrollbar-width: thin; /* Thin scrollbar */
+        scrollbar-color: #ff4d4d rgba(255, 255, 255, 0.1); /* Thumb and track colors */
+      }
+
+      html,
+      body {
+        height: 100%;
+        overflow-x: hidden; /* Prevent horizontal scroll */
+      }
+      body {
+        /* Keep other styles but remove overflow properties */
+        background-color: var(--dark-bg);
+        color: var(--text-color);
+        font-family: var(--primary-font);
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--text-color);
+        transition: all 0.3s ease;
+      }
+
+      a:hover {
+        color: var(--accent-color);
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      /* Header */
+      header {
+        padding: 20px 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        background-color: transparent; /* Start with transparent background */
+        backdrop-filter: blur(3px); /* No blur initially */
+        transition: background-color 0.3s ease, backdrop-filter 0.3s ease; /* Smooth transition */
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-family: "Plaster";
+        font-size: 1.2rem;
+        font-weight: 400;
+        letter-spacing: 3px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 40px;
+      }
+
+      .nav-links a {
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        position: relative;
+        color: var(--text-color);
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--accent-color);
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -3px;
+        left: 0;
+        background-color: var(--text-color);
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .hamburger {
+        display: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+      }
+
+      /* Responsive Navbar */
+      @media (max-width: 992px) {
+        .hamburger {
+          display: block;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 70px;
+          left: 0;
+          width: 100%;
+          flex-direction: column;
+          background-color: rgba(0, 0, 0, 0.95);
+          padding: 30px;
+          clip-path: circle(0px at top right);
+          transition: all 0.5s ease;
+          gap: 25px;
+          display: none; /* Hide by default */
+        }
+
+        .nav-links.active {
+          display: flex; /* Show when active */
+          clip-path: circle(1000px at top right);
+        }
+      }
+
+      /* Hero Section */
+      .hero {
+        height: 100vh;
+        width: 100%;
+        position: relative;
+        padding-top: 80px;
+        overflow: hidden;
+      }
+
+      .hero-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+
+      .hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.7);
+      }
+
+      .hero-content {
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        transform: translateY(-50%);
+        max-width: 700px;
+      }
+
+      .hero-title {
+        font-size: 4.5rem;
+        line-height: 1.1;
+        font-weight: 300;
+        margin-bottom: 20px;
+        letter-spacing: -1px;
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+        font-weight: 300;
+        margin-bottom: 40px;
+        letter-spacing: 1px;
+      }
+
+      .hero-number {
+        position: absolute;
+        right: 10%;
+        bottom: 10%;
+        font-size: 10rem;
+        font-weight: 700;
+        opacity: 0.5;
+        font-family: var(--secondary-font);
+        letter-spacing: -5px;
+      }
+
+      /* Featured Section */
+      .featured {
+        padding: var(--section-padding);
+        position: relative;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 60px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 300;
+        letter-spacing: 1px;
+      }
+
+      .section-number {
+        font-size: 4rem;
+        font-weight: 700;
+        opacity: 0.5;
+        font-family: var(--secondary-font);
+      }
+
+      .featured-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+
+      .featured-text {
+        padding-right: 40px;
+      }
+
+      .featured-quote {
+        font-size: 2.5rem;
+        line-height: 1.2;
+        font-weight: 300;
+        margin-bottom: 40px;
+        font-style: italic;
+        font-family: var(--secondary-font);
+      }
+
+      .featured-caption {
+        font-size: 1rem;
+        opacity: 0.7;
+        margin-bottom: 30px;
+      }
+
+      .featured-image {
+        position: relative;
+      }
+
+      .featured-image img {
+        width: 100%;
+        height: 600px;
+        object-fit: cover;
+      }
+
+      .image-caption {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        font-size: 0.8rem;
+        opacity: 0.7;
+      }
+
+      /* Portfolio Section */
+      .portfolio {
+        padding: var(--section-padding);
+        position: relative;
+      }
+
+      .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-auto-rows: 300px;
+        gap: 20px;
+      }
+
+      .portfolio-item {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .portfolio-item.wide {
+        grid-column: span 8;
+      }
+
+      .portfolio-item.tall {
+        grid-row: span 2;
+      }
+
+      .portfolio-item.standard {
+        grid-column: span 4;
+      }
+
+      .portfolio-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .portfolio-item:hover img {
+        transform: scale(1.05);
+      }
+
+      .portfolio-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .portfolio-item:hover .portfolio-overlay {
+        opacity: 1;
+      }
+
+      .portfolio-title {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+      }
+
+      .portfolio-description {
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+
+      .portfolio-index {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      /* Project Section */
+      .project {
+        padding: var(--section-padding);
+        position: relative;
+      }
+
+      .project-layout {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 40px;
+        align-items: center;
+      }
+
+      .project-text {
+        max-width: 600px;
+      }
+
+      .project-title {
+        font-size: 3rem;
+        font-weight: 300;
+        line-height: 1.2;
+        margin-bottom: 30px;
+        font-family: var(--secondary-font);
+      }
+
+      .project-title em {
+        font-style: italic;
+        display: block;
+      }
+
+      .project-description {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+      }
+
+      .project-meta {
+        margin-top: 40px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .meta-item {
+        margin-bottom: 15px;
+      }
+
+      .meta-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        opacity: 0.7;
+        margin-bottom: 5px;
+      }
+
+      .meta-value {
+        font-size: 1rem;
+      }
+
+      .project-gallery {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .gallery-image {
+        position: relative;
+      }
+
+      .gallery-image img {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+      }
+
+      .gallery-image.main {
+        grid-column: span 2;
+      }
+
+      .gallery-image.main img {
+        height: 500px;
+      }
+
+      /* About Section */
+      .about {
+        padding: var(--section-padding);
+        background-color: #0a0a0a;
+      }
+
+      .about-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+
+      .about-image {
+        position: relative;
+      }
+
+      .about-image img {
+        width: 100%;
+        height: 600px;
+        object-fit: cover;
+      }
+
+      .about-text {
+        max-width: 500px;
+      }
+
+      .about-title {
+        font-size: 3rem;
+        font-weight: 300;
+        margin-bottom: 30px;
+      }
+
+      .about-bio {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        line-height: 1.7;
+      }
+
+      .about-signature {
+        font-family: var(--secondary-font);
+        font-size: 1.5rem;
+        font-style: italic;
+        margin-top: 40px;
+      }
+
+      /* Contact Section */
+      .contact {
+        padding: var(--section-padding);
+      }
+
+      .contact-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+      }
+
+      .contact-info {
+        max-width: 400px;
+      }
+
+      .contact-heading {
+        font-size: 2rem;
+        font-weight: 300;
+        margin-bottom: 40px;
+      }
+
+      .contact-details {
+        margin-bottom: 40px;
+      }
+
+      .contact-item {
+        margin-bottom: 20px;
+      }
+
+      .contact-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        opacity: 0.7;
+        margin-bottom: 5px;
+      }
+
+      .contact-value {
+        font-size: 1.1rem;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 20px;
+        margin-top: 40px;
+      }
+
+      .social-link {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .contact-form .form-group {
+        margin-bottom: 25px;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        opacity: 0.7;
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 15px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: white;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-input:focus {
+        outline: none;
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .form-textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      .submit-btn {
+        display: inline-block;
+        background-color: transparent;
+        color: white;
+        padding: 15px 30px;
+        border: 1px solid white;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .submit-btn:hover {
+        background-color: white;
+        color: black;
+      }
+
+      /* Footer */
+      footer {
+        padding: 40px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .footer-logo {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 30px;
+      }
+
+      .footer-links a {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .footer-copyright {
+        font-size: 0.8rem;
+        opacity: 0.7;
+      }
+
+      /* Numbered section indicators */
+      .section-indicator {
+        position: fixed;
+        right: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 90;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .indicator-item {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 0.8rem;
+        opacity: 0.5;
+        transition: all 0.3s ease;
+      }
+
+      .indicator-item.active {
+        opacity: 1;
+      }
+
+      .indicator-item:hover {
+        opacity: 1;
+      }
+
+      /* Custom cursor */
+      .custom-cursor {
+        position: fixed;
+        width: 40px;
+        height: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        display: none;
+      }
+
+      .cursor-dot {
+        position: fixed;
+        width: 5px;
+        height: 5px;
+        background-color: white;
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        z-index: 10000;
+        display: none;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1200px) {
+        .hero-title {
+          font-size: 3.5rem;
+        }
+
+        .featured-quote {
+          font-size: 2rem;
+        }
+
+        .portfolio-grid {
+          grid-template-columns: repeat(6, 1fr);
+        }
+
+        .portfolio-item.wide {
+          grid-column: span 4;
+        }
+
+        .portfolio-item.standard {
+          grid-column: span 2;
+        }
+      }
+
+      /* Footer */
+      footer {
+        padding: 40px 20px; /* Add padding for smaller screens */
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center; /* Center-align content by default */
+      }
+
+      .footer-content {
+        display: flex;
+        flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px; /* Add spacing between items */
+      }
+
+      .footer-logo {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        flex: 1; /* Allow flexible spacing */
+        text-align: center; /* Center-align logo */
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        justify-content: center; /* Center-align links */
+        text-align: center;
+        flex: 2; /* Allow flexible spacing */
+      }
+
+      .footer-links a {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: var(--accent-color);
+      }
+
+      .footer-copyright {
+        font-size: 0.8rem;
+        opacity: 0.7;
+        flex: 1; /* Allow flexible spacing */
+        text-align: center; /* Center-align copyright text */
+      }
+
+      /* Responsive Design for Footer */
+      @media (max-width: 992px) {
+        .footer-content {
+          flex-direction: column; /* Stack items vertically */
+          gap: 15px; /* Reduce gap */
+        }
+
+        .footer-links {
+          gap: 20px; /* Reduce gap between links */
+        }
+
+        .footer-links a {
+          font-size: 0.85rem; /* Slightly smaller font size */
+        }
+      }
+
+      @media (max-width: 576px) {
+        .footer-links {
+          flex-direction: column; /* Stack links vertically */
+          gap: 15px; /* Reduce gap further */
+        }
+
+        .footer-links a {
+          font-size: 0.8rem; /* Smaller font size for small screens */
+        }
+
+        .footer-logo,
+        .footer-copyright {
+          font-size: 0.9rem; /* Adjust font size for smaller screens */
+        }
+      }
+
+      @media (max-width: 992px) {
+        .hamburger {
+          display: block;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 70px;
+          left: 0;
+          width: 100%;
+          flex-direction: column;
+          background-color: rgba(0, 0, 0, 0.95);
+          padding: 30px;
+          clip-path: circle(0px at top right);
+          transition: all 0.5s ease;
+          gap: 25px;
+        }
+        .nav-links {
+          display: none; /* Hide by default on mobile */
+        }
+        .nav-links.active {
+          display: flex; /* Show when active */
+        }
+        .nav-links.active {
+          clip-path: circle(1000px at top right);
+        }
+
+        .hero-title {
+          font-size: 3rem;
+        }
+
+        .hero-subtitle {
+          font-size: 1rem;
+        }
+
+        .featured-layout,
+        .project-layout,
+        .about-layout,
+        .contact-layout {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        .portfolio-grid {
+          grid-template-columns: repeat(2, 1fr);
+          grid-auto-rows: auto;
+        }
+
+        .portfolio-item.wide,
+        .portfolio-item.standard {
+          grid-column: span 1;
+        }
+
+        .portfolio-item.tall {
+          grid-row: span 1;
+        }
+
+        .portfolio-item img {
+          height: 350px;
+        }
+
+        .section-indicator {
+          display: none;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .section-number {
+          font-size: 3rem;
+        }
+
+        .featured-quote {
+          font-size: 1.5rem;
+        }
+
+        .portfolio-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          gap: 20px;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Custom cursor elements -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- Section indicators -->
+    <div class="section-indicator">
+      <div class="indicator-item active" data-section="hero">01</div>
+      <div class="indicator-item" data-section="featured">02</div>
+      <div class="indicator-item" data-section="portfolio">03</div>
+      <div class="indicator-item" data-section="project">04</div>
+      <div class="indicator-item" data-section="about">05</div>
+    </div>
+
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <a href="#" class="logo">HONEY FRAMES</a>
+          <nav>
+            <div class="hamburger">≡</div>
+            <div class="nav-links">
+              <a href="#featured">featured</a>
+              <a href="#portfolio">portfolio</a>
+              <a href="#project">projects</a>
+              <a href="#about">about</a>
+              <a href="#contact">contact</a>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+      <div class="hero-image">
+        <img src="images/IMG_6971.jpg" alt="Featured portrait photograph" />
+      </div>
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">CAPTURING EMOTION THROUGH THE LENS</h1>
+          <p class="hero-subtitle">
+            PORTRAIT PHOTOGRAPHY THAT REVEALS THE SOUL
+          </p>
+        </div>
+        <div class="hero-number">01</div>
+      </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section id="featured" class="featured">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">FEATURED WORK</h2>
+          <div class="section-number">02</div>
+        </div>
+        <div class="featured-layout">
+          <div class="featured-text">
+            <p class="featured-quote">
+              "The photograph is a thin slice of time that captures the essence
+              of what exists outside the frame."
+            </p>
+            <div class="featured-caption">
+              <p>
+                Creating visual narratives that tell stories beyond words. Every
+                portrait is a collaboration between photographer and subject,
+                revealing moments of vulnerability, strength, and authentic
+                emotion.
+              </p>
+            </div>
+            <div class="featured-caption">
+              <p>— FROM THE SERIES "WHISPERS IN LIGHT"</p>
+            </div>
+          </div>
+          <div class="featured-image">
+            <img src="images/IMG_6959.jpg" alt="Featured portrait" />
+            <div class="image-caption">NEW YORK CITY, 2024</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">PORTFOLIO</h2>
+          <div class="section-number">03</div>
+        </div>
+        <div class="portfolio-grid">
+          <div class="portfolio-item wide">
+            <img src="images/IMG_6960.jpg" alt="Portrait photograph" />
+            <div class="portfolio-overlay">
+              <h3 class="portfolio-title">INTIMATE LIGHT</h3>
+              <p class="portfolio-description">Natural light portraits</p>
+            </div>
+            <div class="portfolio-index">01</div>
+          </div>
+          <div class="portfolio-item standard tall">
+            <img src="images/IMG_6961.jpg" alt="Portrait photograph" />
+            <div class="portfolio-overlay">
+              <h3 class="portfolio-title">WINDOWS TO SOUL</h3>
+              <p class="portfolio-description">Close-up portraits</p>
+            </div>
+            <div class="portfolio-index">02</div>
+          </div>
+          <div class="portfolio-item standard">
+            <img src="images/IMG_6962.jpg" alt="Portrait photograph" />
+            <div class="portfolio-overlay">
+              <h3 class="portfolio-title">URBAN STORIES</h3>
+              <p class="portfolio-description">City life portraits</p>
+            </div>
+            <div class="portfolio-index">03</div>
+          </div>
+          <div class="portfolio-item standard">
+            <img src="images/IMG_6963.jpg" alt="Portrait photograph" />
+            <div class="portfolio-overlay">
+              <h3 class="portfolio-title">EMOTIONAL LANDSCAPES</h3>
+              <p class="portfolio-description">Environmental portraits</p>
+            </div>
+            <div class="portfolio-index">04</div>
+          </div>
+          <div class="portfolio-item wide">
+            <img src="images/IMG_6964.jpg" alt="Portrait photograph" />
+            <div class="portfolio-overlay">
+              <h3 class="portfolio-title">MONOCHROME EMOTIONS</h3>
+              <p class="portfolio-description">Black and white series</p>
+            </div>
+            <div class="portfolio-index">05</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Section -->
+    <section id="project" class="project">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">LATEST PROJECT</h2>
+          <div class="section-number">04</div>
+        </div>
+        <div class="project-layout">
+          <div class="project-text">
+            <h3 class="project-title">
+              WHISPERS IN <em>LIGHT</em> FINDING TRUTH IN SHADOWS
+            </h3>
+            <p class="project-description">
+              An intimate exploration of human emotion through portraiture. This
+              series examines how natural light reveals both the physical and
+              emotional landscapes of its subjects.
+            </p>
+            <p class="project-description">
+              Each portrait captures a moment of authenticity, where light and
+              shadow work together to expose both vulnerability and strength.
+            </p>
+            <div class="project-meta">
+              <div class="meta-item">
+                <div class="meta-label">Location</div>
+                <div class="meta-value">New York City</div>
+              </div>
+              <div class="meta-item">
+                <div class="meta-label">Date</div>
+                <div class="meta-value">2024</div>
+              </div>
+              <div class="meta-item">
+                <div class="meta-label">Category</div>
+                <div class="meta-value">Fine Art Portraits</div>
+              </div>
+              <div class="meta-item">
+                <div class="meta-label">Exhibition</div>
+                <div class="meta-value">Gallery 23, May 2024</div>
+              </div>
+            </div>
+          </div>
+          <div class="project-gallery">
+            <div class="gallery-image main">
+              <img src="images/IMG_6965.jpg" alt="Main project image" />
+            </div>
+            <div class="gallery-image">
+              <img src="/images/IMG_6966.jpg" alt="Project image" />
+            </div>
+            <div class="gallery-image">
+              <img src="images/IMG_6967.jpg" alt="Project image" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">ABOUT</h2>
+          <div class="section-number">05</div>
+        </div>
+        <div class="about-layout">
+          <div class="about-image">
+            <img src="images/IMG_6968.jpg" alt="Photographer portrait" />
+          </div>
+          <div class="about-text">
+            <h3 class="about-title">THE ARTIST BEHIND THE LENS</h3>
+            <p class="about-bio">
+              I am a portrait photographer based in New York City with a passion
+              for capturing the authentic essence of every subject. My work
+              focuses on creating intimate portraits that reveal both strength
+              and vulnerability.
+            </p>
+            <p class="about-bio">
+              With over 8 years of experience in portrait photography, I've
+              developed a style that blends fine art sensibilities with
+              editorial flair. My approach combines technical precision with
+              emotional intuition, allowing me to create images that resonate on
+              a deeper level.
+            </p>
+            <p class="about-bio">
+              My work has been featured in various publications and galleries
+              across the country. I've had the privilege of collaborating with
+              individuals from all walks of life, each bringing their unique
+              story to the frame.
+            </p>
+            <div class="about-signature">Honey Frames</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">CONTACT</h2>
+          <div class="section-number">06</div>
+        </div>
+        <div class="contact-layout">
+          <div class="contact-info">
+            <h3 class="contact-heading">
+              Let's collaborate on your next portrait session
+            </h3>
+            <div class="contact-details">
+              <div class="contact-item">
+                <div class="contact-label">Email</div>
+                <div class="contact-value">hello@elenamarks.com</div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-label">Phone</div>
+                <div class="contact-value">(212) 555-0127</div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-label">Studio</div>
+                <div class="contact-value">
+                  123 Creative Studio, New York, NY
+                </div>
+              </div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-link">Instagram</a>
+              <a href="#" class="social-link">Facebook</a>
+              <a href="#" class="social-link">Pinterest</a>
+            </div>
+          </div>
+          <div class="contact-form">
+            <form>
+              <div class="form-group">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-input" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-input" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Subject</label>
+                <input type="text" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Message</label>
+                <textarea class="form-input form-textarea" required></textarea>
+              </div>
+              <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">HONEY FRAMES</div>
+          <div class="footer-links">
+            <a href="#featured">Featured</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#project">Projects</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Include GSAP and ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Your custom JavaScript -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // About Section Parallax
+        gsap.from(".about-image img", {
+          scale: 1.2, // Zooms out the image as you scroll
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".about",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+
+        // Footer Logo Parallax
+        gsap.from(".footer-logo", {
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          ease: "power1.out",
+          scrollTrigger: {
+            trigger: "footer",
+            start: "top 90%",
+            end: "top 70%",
+            scrub: true,
+          },
+        });
+      });
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
