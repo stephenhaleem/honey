@@ -54,7 +54,8 @@
       html,
       body {
         height: 100%;
-        overflow-x: hidden; /* Prevent horizontal scroll */
+        overflow-x: hidden;
+        scroll-behavior: smooth; /* Prevent horizontal scroll */
       }
       body {
         /* Keep other styles but remove overflow properties */
@@ -91,8 +92,8 @@
         top: 0;
         left: 0;
         z-index: 100;
-        background-color: transparent; /* Start with transparent background */
-        backdrop-filter: blur(3px); /* No blur initially */
+        background-color: rgba(0, 0, 0, 0.1); /* Semi-transparent background */
+        backdrop-filter: blur(1px); /* Apply blur effect */
         transition: background-color 0.3s ease, backdrop-filter 0.3s ease; /* Smooth transition */
       }
 
@@ -141,11 +142,14 @@
       .nav-links a:hover::after {
         width: 100%;
       }
+      .nav-links.active {
+        display: flex;
+      }
 
       .hamburger {
         display: none;
         cursor: pointer;
-        font-size: 1.5rem;
+        font-size: 2.5rem;
       }
 
       /* Responsive Navbar */
@@ -269,6 +273,7 @@
 
       .featured-text {
         padding-right: 40px;
+        padding-top: 90px;
       }
 
       .featured-quote {
@@ -902,15 +907,6 @@
     <div class="custom-cursor"></div>
     <div class="cursor-dot"></div>
 
-    <!-- Section indicators -->
-    <div class="section-indicator">
-      <div class="indicator-item active" data-section="hero">01</div>
-      <div class="indicator-item" data-section="featured">02</div>
-      <div class="indicator-item" data-section="portfolio">03</div>
-      <div class="indicator-item" data-section="project">04</div>
-      <div class="indicator-item" data-section="about">05</div>
-    </div>
-
     <!-- Header -->
     <header>
       <div class="container">
@@ -1213,20 +1209,6 @@
             trigger: ".about",
             start: "top bottom",
             end: "bottom top",
-            scrub: true,
-          },
-        });
-
-        // Footer Logo Parallax
-        gsap.from(".footer-logo", {
-          y: 50,
-          opacity: 0,
-          duration: 1,
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: "footer",
-            start: "top 90%",
-            end: "top 70%",
             scrub: true,
           },
         });
